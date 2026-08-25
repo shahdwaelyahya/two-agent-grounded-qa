@@ -1,38 +1,28 @@
-from app.rag import create_rag_chain
+from app.rag import answer_question
 
 
 def main():
-    retriever, llm = create_rag_chain()
+    print("Rich Dad Poor Dad RAG Assistant")
+    print("Type 'exit' to quit.\n")
 
-    question = input("Ask a question about the book: ")
+    while True:
+        question = input("You: ")
 
-    documents = retriever.invoke(question)
+        if question.lower() == "exit":
+            print("Goodbye!")
+            break
 
-    context = "\n\n".join(
-        document.page_content
-        for document in documents
-    )
+        try:
+            answer = answer_question(question)
 
-    prompt = f"""
-You are a helpful assistant answering questions about
-Rich Dad Poor Dad.
+            print(f"\nAssistant: {answer}\n")
 
-Answer the user's question using only the provided context.
+        except Exception as error:
+            print(f"\nError: {error}\n")
 
-If the answer is not found in the context, say:
-"I couldn't find the answer in the book."
 
-Context:
-{context}
-
-Question:
-{question}
-"""
-
-    response = llm.invoke(prompt)
-
-    print("\nAnswer:")
-    print(response.content)
+if __name__ == "__main__":
+    main()
 
 
 if __name__ == "__main__":
