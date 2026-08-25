@@ -10,16 +10,13 @@ You are a question-answering assistant for the book
 
 Use only the provided context to answer the question.
 
-Rules:
-1. Do not invent information.
-2. If the answer cannot be found in the context, say:
-   "I couldn't find the answer in the provided book context."
-3. Give a clear and concise answer.
-4. Explain the answer based on the retrieved context.
+Do not invent information.
+If the answer is not available in the context,
+say that you could not find it in the book.
 """
 
 
-def answer_question(question: str) -> str:
+def answer_question(question: str):
     settings = get_settings()
 
     retriever = get_retriever()
@@ -49,4 +46,4 @@ Question:
 
     response = llm.invoke(prompt)
 
-    return response.content
+    return response.content, documents
