@@ -9,6 +9,7 @@ load_dotenv()
 
 @dataclass(frozen=True)
 class Settings:
+    book_url: str
     openai_api_key: str
     qdrant_url: str
     qdrant_api_key: str
@@ -32,6 +33,7 @@ def _require_env(name: str) -> str:
 
 def get_settings() -> Settings:
     return Settings(
+        
         openai_api_key=_require_env("OPENAI_API_KEY"),
         qdrant_url=_require_env("QDRANT_URL"),
         qdrant_api_key=_require_env("QDRANT_API_KEY"),
@@ -53,4 +55,5 @@ def get_settings() -> Settings:
         retrieval_score_threshold=float(
             os.getenv("RETRIEVAL_SCORE_THRESHOLD", "0.35")
         ),
+            book_url=_require_env("https://sopheaksrey.wordpress.com/wp-content/uploads/2012/04/rich_dad_poor_dad_by_robert_t-_kiyosaki.pdf"),
     )
