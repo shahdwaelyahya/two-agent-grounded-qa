@@ -7,3 +7,5 @@ qdrant-client
 python-dotenv
 pypdf
 requests
+fastapi
+uvicorn
